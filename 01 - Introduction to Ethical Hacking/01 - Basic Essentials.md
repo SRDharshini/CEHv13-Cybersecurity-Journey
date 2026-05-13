@@ -163,7 +163,7 @@ o	Cyber security	     – Securing information only from digital threats. It’s
 
 -	Linux is an open-source and Unix-based operating system widely used in servers, cybersecurity, cloud computing, networking, and ethical hacking environments. It provides strong security, stability, flexibility, and command-line control, making it one of the most preferred operating systems for cybersecurity professionals and system administrators.
 
--	Essential Linux commands are discussed in the sub-module named [] – PLEASE DO REFER THAT FOR BASIC UNDERSTANDING OF ESSENTIAL LINUX COMMANDS.
+-	Essential Linux commands are discussed in the sub-module named [02 - Linux Essentials & Basic Commands] – PLEASE DO REFER THAT FOR BASIC UNDERSTANDING OF ESSENTIAL LINUX COMMANDS.
 
 
 
