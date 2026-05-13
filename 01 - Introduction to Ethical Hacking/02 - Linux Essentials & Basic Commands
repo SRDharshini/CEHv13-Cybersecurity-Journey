@@ -1,1 +1,301 @@
+				                                LINUX  BASIC  COMMANDS
+
+•	LINUX OS
+
+-	Linux is an open-source and Unix-based operating system widely used in servers, cybersecurity, cloud computing, networking, and ethical hacking environments. It is known for its security, stability, flexibility, and powerful command-line interface. Linux allows users to manage systems, run tools, automate tasks, and control hardware efficiently, making it one of the most preferred operating systems for developers, system administrators, and cybersecurity professionals.
+
+
+•	BASIC TO KNOW
+
+	~	-	Means that you’re in the home location of the current logged in user.
+	$	-	Means you’re the logged in user.
+	#	-	Means you’re the root user.	    
+
+
+•	POINTS TO REMEMBER
+
+	Directory	  -	Folder.
+	File		    -	File.
+	Basically Linux OS commands are case sensitive.
+	COLOUR THEORY (IN LINUX):
+        1.	Blue        -     Directory
+        2.	Green     -     Executable file
+      
+
+
+
+•	BASIC COMMANDS OF LINUX
+
+
+	TO GET LOCATION INFO 
+
+	whoami	    
+    -	Returns the user name.
+	pwd	
+ 		-	Print working directory.
+	hostname   
+    -	Returns the host name (ie. System/host name of the machine).
+	ls		    
+    -	List the files present in the current location.
+	ls -l	    
+    -	List the files present in the current location with the detailed information. (Ex : Permissions, size, last modified time etc).
+	ls -a                
+    -	List the hidden files in the current location.
+
+EXAMPLE : user@parrot => Here Host : Parrot; User: user.
+
+
+
+	CHANGE DIRECTORY
+
+	cd path	
+    -	Change the location (specified – path).
+	cd ..		
+    -	Moves one directory back (parent directory).
+	cd ../ ../ ..	
+    -	Moves back multiple parent directories based on the number of ../.
+
+
+
+
+
+	CREATING A NEW FILE
+
+	touch	file_name	 
+     -  Create a new file in the current location.
+
+
+
+	ADDING CONTENT TO A FILE / WRITING INTO A FILE
+ 
+	pluma file_name	      
+     - This command will open the file and here you can add the content inside the file and save it [ctrl + s].
+
+	echo text  >  file_name      
+     - Overwrites the existing content in the file.
+
+	echo text >> file_name      
+     -	Appends text to the file.
+
+	nano filename	      
+     -	This helps to open a file and edit it in the terminal itself.
+            -	Add / Modify file
+            -	Ctrl + X
+            -	Y / N  Yes to save
+            -	Enter -> Confirm filename.
+
+
+
+	VIEWING A FILE 
+
+	cat	       
+      -	[cat – catalogue] – display.
+      -	Command used to display/view a file in the    command-line interface.
+      -	View a file in command-line-interface.
+
+
+	Pluma        
+      -	Command to view a file.
+      -	 View a file in GUI.
+
+
+
+
+	COPYING A FILE
+
+	cp source destination       
+      - Copies a file from source to destination.
+         
+	cp  source path/file_name  destination path/file_name
+      -	Copy file from one location to another, here you can change filename also.
+
+
+
+	MOVING A FILE (CUT / RENAME OPERATION)
+
+	mv source file destination file    
+        - Moves a file from source to destination.
+        - This is also used for renaming & cut operation.
+	mv source path/file_name  destination path/file_name
+        -	Saving / Moving a file from source location to destination location.
+
+
+
+	DELETION OF A FILES
+
+	rm file_name
+      -	Remove / Delete the mentioned file.
+	rm ~/path/file_name
+      -	Remove /Delete the file that located in the specified location.
+
+	HISTORY
+
+	history	
+      -	Returns the list of commands previously used in the    current terminal session.
+	history -w filename  
+      - Result of history command is stored in filename(file)
+	history -d command number
+      -	Deleting a particular command from the history by specifying it’s command number.
+
+
+
+
+	CREATING A DIRECTORY (FOLDER)
+
+	mkdir directory_name   
+      -	Command to create a new directory.
+      -	We cannot create multiple directory with the same name.
+
+
+
+
+	VIEWING A DIRECTORY STRUCTURE
+
+	tree directory_name/
+      -	This command will give the tree structure of the directory and files present inside the given directory.
+      -	EX :  dir-1
+                |__  dir-2
+                      |___  file-1
+                      |___  file-2
+	                    |___  dir-3
+		                         |___file-1
+      -	The above structure give a tree view of (Directory 1 -> Directory 2 -> file-1, file-2 ; Directory 3 -> file-2). In short 3 directories and 3 files.
+
+
+
+	CREATING A FILE INSIDE A DIRECTORY
+
+	touch directory_path/file_name
+      -	Creates a new empty file in the specified directory path.
+      -	If the file already exists, the touch command updates the file’s timestamp (last modified time).
+
+
+
+	DELETION OF A DIRECTORY
+
+	rmdir directory_name
+      -	This command is used to delete a empty directory (Empty directory means there is no files or directory within the directory).
+
+	rm -r directory_name
+      -	Deletes directory even if it contains any directory or files within it.
+      -	-r => Recursiveness – Recursively deletes all files and subdirectories inside the directory.
+      -	It delete all the directories and the files present inside the directory_name.
+
+
+
+
+
+	CLEAR COMMAND
+
+	clear
+      -	This command clears the screen, but previously used commands can still be viewed using the history command.
+
+
+	SWITCHING TO ROOT USER
+
+	su root
+      -	su => Switch User
+      -	Command to switch to root user.
+
+NOTE : SUDO – SUPER USER DO [ SUDOER HAVE ACCESS TO SWITCH TO THE ROOT USER].
+
+	sudo su root
+      -	Super user do => Switch user to root.
+
+
+
+	ADDING NEW USER
+
+	sudo adduser user_name
+      -	Creates a new user account.
+      -	PROCEDURE : 
+            o	Set password.
+            o	Give necessary user (or) skip it.
+            o	Y.
+            o	New user will be created.
+
+
+	su user_name
+      -	Switch to the newly created user.
+      -	It asks for password.
+      -	Now you’ll be logged in to the newly created user.
+
+
+
+	CHANGE PASSWORD OF THE USER
+
+	sudo passwd user_name
+      -	Command to change password of the give user_name.
+      -	PROCEDURE : 
+            o	Asks for new password.
+            o	Retype password.
+            o	“PASSWORD UPDATED SUCCESSFULLY”.
+
+NOTE : WITH THIS COMMAND, WE CAN ALSO CHANGE THE PASSWORD OF ROOT USER. WHILE CHANGING PASSWORD, IT’LL NOT ASK FOR OLD PASSWORD.
+
+
+
+	DELETING A USER
+
+	sudo deluser user_name
+      -	Command to delete user_name
+
+
+NOTE : IF YOU HAVE SWITCHED TO THE USER WHOM YOU’RE TRYING TO DELETE, BEFORE DELETING THAT USER YOU NEED TO KILL THE PROCESS.
+
+
+
+
+	COMMAND TO KILL ANY RUNNING PROCESS
+
+	sudo kill PID
+        -	This command will kill the running process, if not then you can use the next command.
+        -	Terminates a running process using its Process ID (PID).
+        -	PID – Process ID.
+
+	sudo kill -9 PID
+        -	Force kill (-9)
+
+
+
+NOTE : THIS DELETE COMMAND IS USED TO DELETE THE USER ACCOUNT ONLY, NOT THE USER DATA; User home directory/data may remain in storage unless removed manually.
+
+
+
+	FILE PERMISSIONS
+
+	chmod (change mode) is used to change the permissions of a file or directory in Linux.
+
+	EX : drwxr-xr—
+
+o	d   -   directory				
+o	r   -    read          -  4
+o	w   -    write         -  2
+o	x   -    execute       -  1
+
+
+o	Owner      u       File owner.
+o	Group      g       Users belonging to the file’s group.
+o	Others     o       All other users.
+
+	chmod u+x file_name
+-	u,g,o       Users.   
+-	+,-         Add or Remove permission.
+-	r,w,x       Permissions.
+
+
+	chmod o-r *
+      -	Removes read (r) permission for others (o) from all files in the current directory.
+
+	chmod g+r D*
+      -	Adds read (r) permission for the group (g) to all files/folders starting with D.
+
+	chmod o+x *s
+      -	Adds execute (x) permission for others (o) to all files ending with s.		
+
+
+
+CONCLUSION
+
+      - Linux is the backbone of cybersecurity and ethical hacking. Mastering basic Linux commands helps in understanding system navigation, file management, user control, permissions, and security tool usage. A strong foundation in Linux makes it easier to explore advanced cybersecurity concepts and real-world ethical hacking environments.
 
