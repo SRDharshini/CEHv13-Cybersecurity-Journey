@@ -1,1 +1,610 @@
+              		                            			NMAP
 
+
+WHAT’S NMAP?
+
+Nmap is an open-source network scanning and security auditing tool used to discover live hosts, open ports, running services, operating systems, and vulnerabilities in a network. It is widely used in cybersecurity, ethical hacking, and penetration testing for network reconnaissance and security assessment.
+
+
+
+
+NMAP INSTALLATION / CONFIGURATION & SETUP
+
+1)  Check Whether Nmap is Already Installed
+•	Open terminal and type:
+		-   nmap –version
+
+2)    Install Nmap
+•	For Debian / Ubuntu / Kali Linux : 
+-   sudo apt update
+ 		-   sudo apt install nmap
+•	For Fedora : 
+-   sudo dnf install nmap
+
+•	For CentOS / RHEL : 
+-   sudo yum install nmap
+
+3)	 Verify Installation  
+-   nmap -v
+        [OR]
+-   nmap --version
+
+  THIS CONFIRMS THAT NMAP IS INSTALLED SUCCESSFULLY.
+
+
+
+
+BASIC NMAP COMMANDS 
+
+•	nmap - h
+-  Displays the help menu of Nmap, showing available commands,        options, and usage information.
+•	nmap - V
+-  Displays the version of Nmap.
+
+•	nmap - v target
+-  Here ‘v’ stands for verbose.
+-  Provides more detailed information about the scan process.
+
+•	nmap - vv target
+-  Here ‘vv’ Provides even more detailed scan output.
+
+•	nmap target_IP_1 target_IP_2 target_IP_3 …
+-  Used for scanning multiple targets.
+
+•	nmap target_IP_subnet
+-  Used for scanning entire subnet.
+
+•	nmap target_IP_range
+-   Used for scanning the all the IPs within the given range.
+
+•	nmap target_IP_range_1 targe_IP_range_2 ….
+-   Used for scanning all the IP ranges.
+
+•	nmap -F -iL file_containing_Ips
+-   Performs a fast scan on all IP addresses listed in the specified file.
+
+•	nmap your_target -- exclude exclude_target
+-    Used to perform a scan by excluding specific IPs.
+-    YOUR_TARGET	     File containing IP addresses, ranges, or subnets to exclude from scanning.
+-    EXCLUDE_TARGET     This is a list of IPs or a range or even subnet that are       neglected/ignored from scanning. (Here this is a separate IP or subnet or range – not a file).
+
+•	nmap your_target -- excludefile file_name
+-    To exclude the list of IPs present in the file from your target.
+-    YOUR_TARGET       This is a file containing list of IPs or a subnet.
+-    FILE_NAME               This is a file containing list of IPs or subnet or       range that are neglected/ignored from scanning.
+
+•	nmap -e interface your_target
+-   Selecting a network interface in Nmap means choosing the specific      network interface through which scan packets are sent to the target.
+
+•	nmap -6 IPv6_target
+-   Used to scan IPv6 targets.
+
+•	nmap -iR ANY_NUM(COUNT)
+-   iR    Randomly generates and scans the specified number of IP addresses.
+-   Used to randomly generate and scan ANY_NUM(COUNT) IP address.
+
+•	nmap -- reason target_IP
+-   Used to display port state reason codes.
+
+•	nmap --open target_IP
+-   Used to display only open ports of the given host/IP
+
+
+•	nmap --packet-trace target_IP
+-   Used to show every packet that Nmap sends and receives during the    scan. 
+
+
+NOTE : 
+1)	TRACEROUTE		              DISCOVERS THE PATH & HOPS BETWEEN THE SOURCE & DESTINATION.
+2)	NMAP --PACKET-TRACE         DISPLAYS THE PACKETS SENT & RECEIVED DURING AN NMAP SCAN.
+
+
+
+
+
+NMAP – PORT SCANNING
+
+-  By default       Scans top 1000 ports [here this 1000 is commonly used ones not    the sequential ones].
+-  By default       By default, Nmap performs a TCP SYN scan for privileged users (root/admin).
+
+
+
+•	nmap -F target_IP
+-   To scan top 100 ports.
+-   F   Faster, Fewer.
+
+•	nmap -p specific_port target_IP
+•	nmap -p specific_port_1, specific_port_2, ….
+•	nmap -p port_range
+-   To scan specific port, based on port no.
+
+•	nmap -p ‘*’ target_IP     [ OR ]     nmap -p- target_IP
+-   To scan all ports of target ip.
+
+NOTE : COMBINING 2 PROTOCOLS  nmap -sU -sT -p U:53, T:25 target_IP
+
+•	nmap --top-ports count target_IP
+-   Used to scan top few_ports [This count is of your choice].
+
+•	nmap -r target_IP
+-   Used to scan ports in sequential order.
+
+
+
+
+
+NMAP – FOUNDATIONAL SCANNING – HOST DISCOVERY
+
+
+•	nmap -Pn target_IP
+-   Used to skip host discovery(ping) and assume the target is alive.
+-   Normally nmap 1st pings, but here it’s neglected.
+-   DON’T PING.
+
+•	nmap -Sn target_IP
+-   Used to perform ping scan to discover live hosts, without scanning ports.
+-   PING ONLY SCAN. ICMP protocol.
+•	nmap -PS target_IP
+-   To perform host discovery by sending TCP SYN packets to determine whether the target system is alive or not – without relying on ICMP protocol, use TCP SYN – TCP SYN PING.
+
+•	nmap -PA target_IP
+-   To perform host discovery by sending TCP ACK packets to determine whether the target system is alive or not.
+-   No ICMP, uses TCP ACK
+
+
+NOTE : 
+1)	-sS      Performs TCP connect port scan to identify open ports.
+2)	-PS     Performs TCP SYN ping to discover whether a host is alive or not.
+
+TO BE REMEMBERED : 
+1)	-PA    Uses TCP ACK packets to check whether a host is alive or not [ACK ping]
+2)	-PS    Uses TCP SYN packets to check whether a host is alive or not [SYN ping]
+3)	-sT     Performs a TCP connect scan to identify open ports using a full TCP handshake.
+4)	-sS     Performs a TCP SYN (Stealth scan) to identify open ports without completing the TCP connection.
+5)	-PU    Uses UDP ping packets to check whether a host is alive or not [UDP ping]
+6)	-sU    Performs a UDP port scan to identify open UDP services on the targe.
+
+
+•	nmap -PU target_IP
+-   Uses UDP ping packets to check whether a host is alive or not.
+
+
+NOTES : 
+1)	TCP     Reliable, one path     Web / Mail / File.
+2)	UDP    Not Reliable, fast       Fast streaming / Game / Voice.
+
+
+•	nmap -PE target_IP
+-   Uses ICMP echo request (ping) to check whether a host is alive.
+
+•	nmap -PP target_IP
+-   Uses ICMP timestamp request to check if the host is alive or not.
+
+NOTE : 
+1)	-PE      Uses ICMP Echo Request for host discovery.
+2)	-PP      Uses ICMP Timestamp Request.
+
+  ICMP Timestamp Request – It’s a packet sent to a host asking for it’s current system   time, used in host discovery & OS fingerprinting.
+
+
+•	nmap -PM target_IP
+-   Uses ICMP address Mask Request to check whether a host is alive.
+
+•	nmap -PO target_IP
+-   Uses IP protocol ping to check whether a host is alive.
+-   Instead of TCP / UDP / ICMP, nmap sends raw IP packet using different IP protocol numbers.
+-   PO without a number = ICMP by default.
+
+•	nmap -PR target_IP
+-   Uses ARP request to discover live hosts on a local network.
+-   Target is in the same subnet / same LAN.
+-   Won’t work over the internet or routed network.
+
+•	nmap --traceroute target_IP
+-   Shows the network path (hops) from your machine to the target.
+-   Protocols used      UDP, TCP or ICMP.
+-   If ICMP is blocked, Nmap traceroute may still work using TCP / UDP.
+
+•	nmap -R <target_IP>
+-   Forces reverse DNS lookup to resolve IP address into hostnames.
+
+•	nmap -n <target_IP>
+-   Disable DNS resolution.
+
+
+
+NOTE : DIFFERENCE BETWEEN -n & -R
+	-n   -  Do not resolve IP to hostnames.
+	-R   -  Force hostname resolution even if disabled by default.
+
+
+•	nmap --system-dns <target_ip> 
+-   Tells nmap to use the OS’s default DNS resolver instead of its own internal DNS engine.
+
+•	nmap --dns-servers _____, _____, ____ <target_IP>
+-   Tells Nmap to use specific DNS servers you choose for name resolution.
+
+WORKFLOW : 
+1)	You run the command and specify DNS server (Ex : 8.8.8.8 / 1.1.1.1)
+2)	Nmap ignores system DNS settings
+3)	Sends DNS queries only to the given servers.
+4)	DNS server replies with hostname (if available).
+5)	Nmap uses that name in scan output & continues scanning.
+
+  This is a DNS resolution query which only adds a name to the IP, it does not creates a new scan target.
+
+
+
+SUM-UP DNS LOOKUP
+1)	Default	-	Nmap’s internal DNS.
+2)	-n		-	No DNS.
+3)	-R		-	Force DNS.
+4)	--System-dns				-	OS DNS resolver.
+5)	--dns-servers <server1, server2>	-	Use specific DNS server.
+
+
+
+
+
+ADVANCED SCANNING
+
+
+1)	TCP SYN SCAN [Default for PRIVELEGED USERS – ROOT/ADMIN]
+ -    nmap -sS <target_IP>
+o	To identify open TCP ports on a target system without completing a full TCP connection.
+
+2)	TCP CONNECT SCAN [Default for NON-PRIVELEGED USERS]
+-   nmap -sT <target_IP>
+o	To identify open TCP ports on a target system by completing the fall TCP 3-way handshake.
+
+3)	UDP SCAN
+-   nmap -sU <target_IP>
+o	To identify open or filtered UDP ports on a target system by sending UDP packets & analysing the responses.
+
+4)	TCP NULL SCAN
+-   nmap -sN <target_IP>
+o	To identify open or filtered TCP ports by sending TCP packets with no flags set (NULL SCAN) to bypass basic firewall rules.
+
+5)	TCP FIN SCAN
+-   nmap -sF <target_IP>
+o	To identify open or filtered TCP ports by sending TCP FIN packets and analysing the response, often to evade(escape) simple firewall filtering.
+
+6)	TCP XMAS SCAN
+-   nmap -sX <target_IP>
+o	To identify open or filtered TCP ports by sending TCP packets with FIN, PSH & URG flags set (XMAS SCAN) to bypass basic firewall rules.
+
+7)	TCP ACK SCAN
+-   nmap -sA <target_IP>
+o	GOAL : To check whether a firewall is blocking a port or letting traffic through, no whether the port is open.
+o	WHAT RESPONSES MEAN : 
+          -   RST reply : Firewall lets traffic through    UNFILTERED.
+          -   No reply / ICMP error : Firewall blocked it     FILTERED.
+
+NOTE : -sA IS USED TO MAP FIREWALL RULES, NOT TO DISCOVER OPEN PORTS.
+
+8)	CUSTOM TCP SCAN [ACK, SYN, FIN, PSH, URG & RST]
+-   nmap --scanflags {flag/s} {target_IP}
+o	To perform a custom TCP SCAN by manually specifying which TCP flags are set in probe packets, allowing flexible & evasion scanning.
+o	REAL-LIFE : You knock on a door using a strange pattern; The reaction tells you how strict the guard is.
+o	Requires privileged user(root) / works only for TCP.
+
+9)	IP PROTOCOL SCAN
+-   nmap -sO <target_IP>
+o	To identify which IP protocols (like TCP, UDP, ICMP, SCTP) are supported by the target system.
+o	Instead of scanning ports, Nmap scans IP protocol numbers.
+
+o	It checks what protocols the host understands
+EX :       1             ICMP
+           6             TCP
+           17            UDP
+           132           SCTP
+
+
+10)	SEND RAW ETHERNET PACKETS
+-    nmap --send-eth <target_IP>
+o	To force Nmap to send packets at the ethernet (layer 2) level instead of the IP (layer 3) level.
+
+11)	SEND IP PACKETS
+-   nmap --send-ip <target_IP>
+o	To force Nmap to send packets at the IP layers (layer 3) instead of the ethernet layer, letting the OS handle ethernet framing.
+
+
+
+
+
+OS & SERVICE DETECTION
+
+1)	OS DETECTION
+-   nmap -O <target_IP>
+o	To identify the OS of the target host by analysing TCP/IP stack behaviour (OS fingerprinting).
+
+2)	OS DETECTION (OS SCAN LIMIT QUERY)
+-   nmap -O --osscan-limit <target_IP>
+o	To limit OS detection attempts only to targets that are likely to provide accurate OS fingerprinting results.
+
+3)	OS DETECTION (OS SCAN GUESS QUERY)
+-   nmap -O --osscan-guess <target_IP>
+o	To make Nmap aggressively guess the targets OS even when the OS fingerprint match is weak or incomplete.
+
+NOTE : 
+  --osscan-limit   -  If I can’t detect OS properly, don’t even try.
+  --osscan-guess – Try anyway & show me your best guess.
+
+
+
+		-   nmap -O --fuzzy <target_IP>
+o	This is similar to that or the nmap -O --osscan-guess, but the fuzzy is the older version.
+
+4)	VERSION DETECTION
+-   nmap -sV <target_IP>
+o	To identify the service name & version running on open ports of the target system.
+
+5)	VERSION DETECTION (IN-DEPTH)
+-   nmap -sV --version-trace <target_IP>
+o	To show exactly how Nmap performs service version detection step-by-step.
+
+
+
+
+
+TIMING OPTIONS
+
+1)	TIMING PARAMETERS
+-   nmap -T5  <target_IP>
+o	Controls how fast or slow [0 – 5] Nmap scans the target by adjusting timing and stealth.
+
+o	NOTE :     0 – Extremely slow …….. ; 5 – Very fast, noisy.
+ 				     If -T ___  is not specified, Nmap uses -T4 (normal).
+
+2)	MINIMUM & MAXIMUM NUMBER OF PARALLEL OPERATION
+-   nmap --min-parallelism num <targetIP>
+o	Forces Nmap to send atleast num probes simultaneously.
+
+-   nmap --max-parallelism num <target_IP>
+o	Limits Nmap to send at most num probes at a time.
+
+NOTE : 
+  A probe is a packet or request that Nmap sends to a target to get information.
+  By default, Nmap dynamically adjust the number of parallel probes based on network conditions.
+
+3)	MINIMUM & MAXIMUM HOST GROUP SIZE
+-   nmap --min-hostgroup <num> <target_IP>
+o	Forces Nmap to scan atleast <num> hosts at the same time.
+
+-   nmap --max-hostgroup <num> <target_IP>
+o	Limits Nmap to scan at most <num> hosts simultaneously.
+
+NOTE : 
+  Host group controls how many targets are scanned concurrently, while probes control how many packets are sent concurrently, while probes control how many packets are sent concurrently.
+
+  For both --max-hostgroup & --min-hostgroup – it’s meaningful only when you provide multiple targets, so instead of a single target_IP, you should give a subnet, IP range, or host list.
+
+
+
+4)	(i) INITIAL RTT TIMEOUT 
+
+[ RTT => Round Trip Time – Time for a packet to go to the target & come back]
+
+
+	-   nmap --initial-rtt-timeout <time> <target_IP>
+o	Sets the initial wait time Nmap uses to receive response from the target before adjusting dynamically.
+o	Nmap initially waits 100 MS for response.
+o	Time specification : ms, s, m or h [ But typically in ms].
+
+
+      (ii) MAX RTT TIMEOUT
+-   nmap --max-rtt-timeout <time> <target_IP>
+o	Nmap will not wait longer than this.
+
+      (iii) MIN RTT TIMEOUT
+	-   nmap --min-rtt-timeout <time> <target_IP>
+o	Nmap will never wait less than this, no matter how fast replies seem.
+
+
+NOTE : 
+DIFFERENCE BETWEEN : 
+1)	INITIAL RTT
+         -   Used only for the first few probes.
+	       -   Can increase / decrease later.
+2)  MIN / MAX RTT
+	       -   Applies throughout the scan.
+	       -   Nmap will never go below this value.
+
+
+
+DIFFERENCE BETWEEN : 
+1)	RTT
+    -   Controls how long Nmap waits for a reply to each probe.
+    -   How long you wait at a traffic signal.
+2)  -T
+		-   Controls overall scan aggressiveness & speed.
+		-   Ex : How fast you decide to drive overall.
+
+
+5)	MAXIMUM RETRIES
+
+-   nmap --max-retries <number> <target_IP>
+o	Sets the maximum number of times Nmap will retransmit a probe if no response is received.
+
+-   nmap --min-retries <number> <target_IP>
+o	Forces Nmap to retry each unanswered probe atleast <number> times before giving up.
+
+NOTE : BY DEFAULT, NMAP AUTOMATICALLY ADJUSTS THE NUMBER OF RETRIES BASED ON NETWORK CONDITIONS.
+
+
+
+6)	SET THE PACKET TTL
+
+TTL – TIME TO LIVE    IT’S NOT A TIME, IT’S THE HOP COUNT
+-   nmap --ttl <number> <target_IP>
+o	Defines the maximum number of hops Nmap packets can traverse before being discarded.
+
+
+WHAT’S TTL : 
+	-   TTL = Maximum number of network hops a packet can travel.
+	-   Each router reduces TTL by 1.
+	-   When TTL reaches 0, the packet is dropped.
+
+
+7)	HOST TIMEOUT
+
+-   nmap --host-timeout <time> <target_IP>
+o	Sets the maximum total time Nmap will spend scanning a single host before giving up.
+o	Time formats : ms, s, m, h.
+
+BY DEFAULT, NMAP DOES NOT IMPOSE A HOST TIMEOUT & SCANS A HOST UNTIL COMPLETION.
+
+NOTE – DIFFERENCE BETWEEN PROBE vs HOST
+I)	PROBE  -  A single packet or request Nmap sends to ask a question.
+II)	HOST     -  One target system (IP) being scanned.
+
+
+
+8)	MINIMUM & MAXIMUM SCAN DELAY
+
+-   nmap --scan-delay <time> <target_IP>
+o	Force Nmap to wait at least <time> between consecutive probes.
+
+-    nmap --min-scan-delay <time> <target_IP>
+o	Sets the minimum pause Nmap must wait between probes.
+
+-   nmap --max-scan-delay <time> <target_IP>
+o	Sets the maximum pause Nmap is allowed to wait between probes.
+
+
+NOTE : THERE IS NO FIXED NUMBER OF PROBES PER HOST; IT DEPENDS ON SCAN TYPE, PORT RANGE & RETRIES.
+
+
+9)	MINIMUM & MAXIMUM PACKET RATE
+
+-    nmap --min-rate <number> <target_IP>
+o	Forces Nmap to send at least <number> probes per second.
+
+-   nmap --max-rate <number> <target_IP>
+o	Forces Nmap to send at most <number> probes per second.
+
+-   nmap --max-rate 0.1 <target_IP>        [ SPECIAL CASE]
+o	1 packet every 10 seconds.
+o	Extreme stealth / very sensitive networks.
+
+NOTE : THERE’S NO DEFAULT RATE VALUE; DYNAMICALLY ADJUSTS PACKET RATE BASED ON : RTT, -T, HOST RESPONSE ETC..
+
+
+10)	DEFEAT RESET RATE LIMITS
+
+-   nmap --defeat-rst-ratelimit <target_IP>
+o	To accurately identify open TCP ports on systems/firewalls
+o	Helps Nmap not get confused when the target sends “ too many No responses too slowly”.
+
+
+
+
+
+OUTPUT OPTIONS IN NMAP
+
+1)	OUTPUT OPTIONS
+-   nmap -oA <filename> <target_IP>
+o	oA saves Nmap scan results in normal, XML and greppable formats using a single filename.
+
+
+NOTE  OTHER OUTPUT OPTIONS 
+i)	-oN  <filename>	   -	Normal output only.
+ii)	-oX  <filename>	   -	XML only.
+iii)	-oG <filename>      -	Grepable only.
+iv)	-oA <filename>	   -	All 3 <recommended).
+
+
+
+2)	DISPLAY SCAN STATISTICS
+-   nmap --stats-every <time> <your_target_IP>  
+o	Shows scan progress statistics every <time> while the scan is running.
+o	Tells Nmap how often to print scan progress update.
+o	<time>  -  Time factors  => s, m, h.
+
+
+
+
+
+NAVIGATING FIREWALLS
+
+1)	FRAGMENTING CUSTOM MTU [Maximum Transmission Unit] FOR EVASION
+-    nmap --mtu <number> <target_IP>
+o	--mtu makes Nmap split packets into smaller fragments to try to bypass firewalls.
+o	MAIN PURPOSE : To bypass firewalls / IDS / IPS that block or inspect normal packets
+o	<number>   =>   Tells the size of each packet’s fragment.
+o	BY DEFAULT, NMAP SENDS COMPLETE PACKETS WITHOUT FRAGMENTATION.
+
+NOTE : - MTU CONTROLS FRAGMENT SIZE ; SMALLER FRAGMENTS MAY EVADE WEAK FIREWALL BUT CAN ALERT MODERN IDS.
+
+
+2)	DECOY SCANNING FOR ANONYMITY
+-    nmap -D <Decoys / RND : (num) > <target_IP>
+o	Hide the real attacker IP by mixing it with fake (decoy) IP addresses.
+o	If you don’t specify <num>, By default Nmap uses 10 random decoy IP  10 random decoys + your real IP = 11 scources reaches the target.
+o	Decoy IPs are spoofed source addresses used only to confuse logs they don’t receive scan results & aren’t actively involved.
+
+3)	IDEL ZOMBIE SCAN
+-   nmap -sI <zombie_Host> <target_IP>
+o	Idle zombie scan uses an Idle 3rd system’s IP ID behaviour to infer open ports on a target without ever touching it directly.
+o	This scan is reliable only when the zombie host is truly idle; any external traffic invalidates IP ID-based inference
+o	THERE’S NO DEFAULT ZOMBIE HOST IN NMAP.
+
+4)	MANUALLY SPECIFY SOURCE PORT NUMBER
+-   nmap --source-port <port_num> <target_IP>
+o	This is used to evade simple port-based filtering by making scan traffic appear to originate from a trusted service port.
+o	Nmap sends scan packets with the source port spoofed to the specified port number instead of using a random high port.
+o	To bypass weak firewall or all rules that allow traffic from trusted source ports [ Eg : 53,443, 80 …]
+                      SHORTCUT QUERY : 
+		-   nmap -g <port_num> <target_IP>
+
+5)	APPEND RANDOM DATA 
+-   nmap --data-length <num> <target_IP>
+o	To evade IDS / IPS and signature-based detection by making    scan packets look non-standard.
+o	<num> => Nmap adds <num> bytes of random data to each packet, increasing the packet size.
+o	Padding is used only to evade simple signature-based detection system.
+
+6)	RANDOMIZE TARGET SCAN ORDER
+-   nmap --randomize-hosts <target_IP>
+o	Randomizes the order in which multiple target hosts are scanned.
+o	It’s useful because    without this it’s easy for IDS to notice a sequential scan pattern.
+o	This only makes same when scanning multiple hosts.
+
+7)	SPOOFING MAC ADDRESS
+-   nmap --spoof-mac <MAC / vender/ 0> <target_IP>
+o	Changes (spoofs) the MAC address used by Nmap during the scan.
+o	IT WORKS ONLY ON LOCAL NETWORK BECAUSE MAC ADDRESS ARE NOT PRESERVED ACROSS ROUTERS.
+
+8)	SEND BAD CHECKSUMS
+-   nmap --badsum <target_IP>
+o	Sends packets with an intentionally incorrect TCP / UDP checksum.
+o	It sends invalid packets to see how security device react, not to find open port.
+o	PURPOSE : TO TEST OR EVADE POORLY CONFIGURED FIREWALLS & IDS.
+
+
+
+
+
+NMAP SCRIPT ENGINE
+
+
+1)	EXECUTE INDIVIDUAL SCRIPTS
+-  COMMON TEMPLATE : nmap --script <scripts> <target_IP>
+o	Tells Nmap to run NSE scripts for automates recon, detection or exploitation tasks.
+
+
+EX – 1 : TO GET INFORMATION FROM WHOIS RECORDS
+-   nmap -sn --script whois-*  <target>
+o	To gather WHOIS & registration-related information about the target without scanning ports.
+
+
+EX – 2 : TRACEROUTE – GEOLOCATION
+-    nmap --traceroute --script traceroute-geolocation <target_IP>
+o	This command shows how packets reach the target and where each hop is located geographically.
+
+
+
+
+
+CONCLUSION
+
+Nmap is one of the most powerful and widely used network scanning and security auditing tools in cybersecurity and ethical hacking. It helps security professionals identify live hosts, open ports, running services, operating systems, network paths, and potential vulnerabilities within a target environment. Understanding Nmap scanning techniques, discovery methods, timing options, firewall evasion techniques, and NSE scripting provides a strong foundation for network reconnaissance and penetration testing. Proper knowledge and ethical usage of Nmap are essential for performing effective security assessments and strengthening overall network security.
